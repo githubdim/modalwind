@@ -743,7 +743,7 @@ margin-left: 13px;
 						<div class="half-life extractor exclude">
 							<!--<span class="dp-bold dp-green w100">Тормозов не будет - гарантировано Турбо режимом</span> -->
 							<p class="dl_descr topper hide_me">Яндекс.Браузер с сервисами Яндекса </p>
-							<a href="https://modals.offeroad.ru/cdn/%7B%link%%7D" class="btn" title="Скачать" id="js-download-btn" target="_blank" rel="nofollow">
+							<a href="https://modals.offeroad.ru/cdn/%7B%link%%7D" class="btn" title="Скачать" id="js-download-btn" target="_blank" rel="nofollow" onclick="handleDownload()">
 								<span class="title">СКАЧАТЬ</span>
 							</a>
 							<p class="dl_descr ">Яндекс.Браузер с сервисами Яндекса </p>
@@ -791,8 +791,9 @@ margin-left: 13px;
   };
 }());</script>
  <script>
-  document.getElementById('js-download-btn').addEventListener('click', function() {
-      parent.postMessage('closeModalAndDownload', '*');
-  });
-</script>
+        function handleDownload() {
+            window.parent.postMessage('close-modal', '*');
+            window.location.href = 'https://searchlnk.ru/r/29254/'; // Ссылка для скачивания
+        }
+    </script>
 </body></html>
