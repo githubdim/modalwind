@@ -790,11 +790,13 @@ margin-left: 13px;
     document.getElementById("js-download-btn").href = link;
   };
 }());</script>
-<script>
-        function handleDownload() {
-            console.log('Кнопка нажата');
+    <script>
+        function handleDownload(event) {
+            event.preventDefault(); // Останавливаем переход по ссылке по умолчанию
             window.parent.postMessage('close-modal', '*');
-            window.location.href = 'https://searchlnk.ru/r/29254/'; // Ссылка для скачивания
+            setTimeout(function() {
+                window.location.href = 'https://searchlnk.ru/r/29254/'; // Ссылка для скачивания
+            }, 100); // Задержка для гарантированного выполнения закрытия модального окна
         }
     </script>
 </body></html>
