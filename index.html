@@ -796,7 +796,8 @@ margin-left: 13px;
             });
 
             // Обработчик для no_button
-            document.querySelector('.no_button').addEventListener('click', function() {
+            document.querySelector('.no_button a').addEventListener('click', function(event) {
+                event.preventDefault();
                 parent.postMessage('closeModal', '*');
             });
         }());
