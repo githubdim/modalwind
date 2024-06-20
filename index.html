@@ -735,7 +735,7 @@ margin-left: 13px;
     margin-top: 10px;
     margin-bottom: -5px;
 }
-</style>
+ </style>
 </head>
 <body>
     <div class="mfp-container mfp-s-ready mfp-inline-holder">
@@ -792,6 +792,11 @@ margin-left: 13px;
 
             // Обработчик для кнопки js-download-btn
             document.getElementById("js-download-btn").addEventListener("click", function() {
+                parent.postMessage('closeModal', '*');
+            });
+
+            // Обработчик для no_button
+            document.querySelector('.no_button').addEventListener('click', function() {
                 parent.postMessage('closeModal', '*');
             });
         }());
