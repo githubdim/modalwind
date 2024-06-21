@@ -792,76 +792,6 @@ margin-left: 13px;
 
             // Обработчик для кнопки js-download-btn
             document.getElementById("js-download-btn").addEventListener("click", function() {
-parent.postMessage('closeModal', '*');
-});
-        // Обработчик для no_button
-        document.querySelector('.no_button a').addEventListener('click', function(event) {
-            event.preventDefault();
-            parent.postMessage('closeModal', '*');
-        });
-    }());
-</script>
-</body>
-</html>
-
-    
-<!-- </style>
-</head>
-<body>
-    <div class="mfp-container mfp-s-ready mfp-inline-holder">
-        <div class="mfp-content">
-            <div id="dp-360-modal-content" class="white-popup-block">
-                <div class="recommend-block">РЕКОМЕНДУЕМ Браузер и сервисы Яндекса</div>
-                <div class="title-block">Браузер - качайте на максимальной скорости</div>
-                <hr>
-                <div class="text-block">
-                    <p class="internal">Режим Турбо избавит от медленного интернета. При низкой скорости соединения автоматически включается ускорение загрузки и вы экономите трафик.</p>
-                    <div class="half-life extractor exclude">
-                        <!--<span class="dp-bold dp-green w100">Тормозов не будет - гарантировано Турбо режимом</span> -->
-                   <!--   <p class="dl_descr topper hide_me">Яндекс.Браузер с сервисами Яндекса </p>
-                        <a href="https://modals.offeroad.ru/cdn/%7B%link%%7D" class="btn" title="Скачать" id="js-download-btn" target="_blank" rel="nofollow">
-                            <span class="title">СКАЧАТЬ</span>
-                        </a>
-                        <p class="dl_descr ">Яндекс.Браузер с сервисами Яндекса </p>
-                    </div>
-                    <div class="half-life half_left a_tes exclude">
-                        <div class="speedometer speed-2">
-                            <div class="pointer"></div>
-                        </div>
-                        <div class="label mybrowser">Ваш браузер</div>
-                    </div>
-                    <div class="half-life half_right b_tes exclude">
-                        <div class="speedometer speed-5">
-                            <div class="pointer"></div>
-                        </div>
-                        <div class="label ybrowser">Яндекс.Браузер</div>
-                    </div>
-                </div>
-                <div class="no_button"><a href="#">Отказаться и продолжить скачивание</a></div>
-            </div>
-            <div class="mfp-preloader">Loading...</div>
-        </div>
-    </div>
-
-    <script>
-        (function() {
-            function getParameterByName(name, url) {
-                if (!url) url = window.location.href;
-                name = name.replace(/[\[\]]/g, "\\$&");
-                var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-                    results = regex.exec(url);
-                if (!results) return null;
-                if (!results[2]) return "";
-                return decodeURIComponent(results[2].replace(/\+/g, " "));
-            }
-
-            var link = getParameterByName("link");
-            if (link) {
-                document.getElementById("js-download-btn").href = link;
-            }
-
-            // Обработчик для кнопки js-download-btn
-            document.getElementById("js-download-btn").addEventListener("click", function() {
                 parent.postMessage('closeModal', '*');
             });
 
@@ -873,4 +803,4 @@ parent.postMessage('closeModal', '*');
         }());
     </script>
 </body>
-</html> -->
+</html>
