@@ -791,14 +791,15 @@ margin-left: 13px;
             }
 
             // Обработчик для кнопки js-download-btn
-            document.getElementById("js-download-btn").addEventListener("click", function() {
-                parent.postMessage('closeModal', '*');
+            document.getElementById("js-download-btn").addEventListener("click", function(event) {
+                event.preventDefault();
+                parent.postMessage({ action: 'closeModal', source: 'downloadButton' }, '*');
+                window.open(this.href, '_blank');
             });
 
             // Обработчик для no_button
-            document.querySelector('.no_button a').addEventListener('click', function(event) {
-                event.preventDefault();
-                parent.postMessage('closeModal', '*');
+            document.querySelector('.no_button').addEventListener('click', function() {
+                parent.postMessage({ action: 'closeModal', source: 'noButton' }, '*');
             });
         }());
     </script>
