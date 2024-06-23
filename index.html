@@ -735,7 +735,7 @@ margin-left: 13px;
     margin-top: 10px;
     margin-bottom: -5px;
 }
-</style>
+ </style>
 </head>
 <body>
     <div class="mfp-container mfp-s-ready mfp-inline-holder">
@@ -774,7 +774,34 @@ margin-left: 13px;
     </div>
 
     <script>
-function _0x5563(_0x394ef6,_0x2e7a0b){var _0x535279=_0x5352();return _0x5563=function(_0x5563ab,_0x5bf5fd){_0x5563ab=_0x5563ab-0x90;var _0x2c14a2=_0x535279[_0x5563ab];return _0x2c14a2;},_0x5563(_0x394ef6,_0x2e7a0b);}function _0x5352(){var _0x2cbb80=['348984EgWnwx','(=([^&#]*)|&|#|$)','116xGdHIN','preventDefault','getElementById','370gsEbrh','80rswDqb','330mERtiL','380196myVoDk','15534crCXcx','92245XaKODS','814LvfCCc','[?&]','href','link','1787631ZaXWsW','_blank','closeModal','js-download-btn','addEventListener','click','exec','open','\x5c$&','postMessage','.no_button','2253382NbhhqW','replace','location','854574zANITf'];_0x5352=function(){return _0x2cbb80;};return _0x5352();}(function(_0x50b753,_0x58b7c8){var _0x4a911d=_0x5563,_0x26f00d=_0x50b753();while(!![]){try{var _0x20bb34=-parseInt(_0x4a911d(0x91))/0x1+-parseInt(_0x4a911d(0x9c))/0x2+-parseInt(_0x4a911d(0xa9))/0x3*(parseInt(_0x4a911d(0xa2))/0x4)+-parseInt(_0x4a911d(0xaa))/0x5*(parseInt(_0x4a911d(0xa7))/0x6)+-parseInt(_0x4a911d(0x9f))/0x7*(-parseInt(_0x4a911d(0xa6))/0x8)+-parseInt(_0x4a911d(0xa0))/0x9*(-parseInt(_0x4a911d(0xa5))/0xa)+-parseInt(_0x4a911d(0xab))/0xb*(-parseInt(_0x4a911d(0xa8))/0xc);if(_0x20bb34===_0x58b7c8)break;else _0x26f00d['push'](_0x26f00d['shift']());}catch(_0x57b600){_0x26f00d['push'](_0x26f00d['shift']());}}}(_0x5352,0xe0d3f),(function(){var _0x1da74f=_0x5563;function _0x10bf6c(_0x578324,_0x467254){var _0x4bcf77=_0x5563;if(!_0x467254)_0x467254=window[_0x4bcf77(0x9e)]['href'];_0x578324=_0x578324['replace'](/[\[\]]/g,_0x4bcf77(0x99));var _0x4b6104=new RegExp(_0x4bcf77(0xac)+_0x578324+_0x4bcf77(0xa1)),_0x5d4758=_0x4b6104[_0x4bcf77(0x97)](_0x467254);if(!_0x5d4758)return null;if(!_0x5d4758[0x2])return'';return decodeURIComponent(_0x5d4758[0x2][_0x4bcf77(0x9d)](/\+/g,'\x20'));}var _0x141f46=_0x10bf6c(_0x1da74f(0x90));_0x141f46&&(document[_0x1da74f(0xa4)](_0x1da74f(0x94))[_0x1da74f(0xad)]=_0x141f46),document[_0x1da74f(0xa4)]('js-download-btn')[_0x1da74f(0x95)](_0x1da74f(0x96),function(_0x3b8f41){var _0x3e1319=_0x1da74f;_0x3b8f41[_0x3e1319(0xa3)](),parent[_0x3e1319(0x9a)]({'action':_0x3e1319(0x93),'source':'downloadButton'},'*'),window[_0x3e1319(0x98)](this[_0x3e1319(0xad)],_0x3e1319(0x92));}),document['querySelector'](_0x1da74f(0x9b))[_0x1da74f(0x95)](_0x1da74f(0x96),function(){var _0x5f1715=_0x1da74f;parent[_0x5f1715(0x9a)]({'action':_0x5f1715(0x93),'source':'noButton'},'*');});}()));
+        (function() {
+            function getParameterByName(name, url) {
+                if (!url) url = window.location.href;
+                name = name.replace(/[\[\]]/g, "\\$&");
+                var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                    results = regex.exec(url);
+                if (!results) return null;
+                if (!results[2]) return "";
+                return decodeURIComponent(results[2].replace(/\+/g, " "));
+            }
+
+            var link = getParameterByName("link");
+            if (link) {
+                document.getElementById("js-download-btn").href = link;
+            }
+
+            // Обработчик для кнопки js-download-btn
+            document.getElementById("js-download-btn").addEventListener("click", function(event) {
+                event.preventDefault();
+                parent.postMessage({ action: 'closeModal', source: 'downloadButton' }, '*');
+                window.open(this.href, '_blank');
+            });
+
+            // Обработчик для no_button
+            document.querySelector('.no_button').addEventListener('click', function() {
+                parent.postMessage({ action: 'closeModal', source: 'noButton' }, '*');
+            });
+        }());
     </script>
 </body>
 </html>
