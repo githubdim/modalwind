@@ -735,7 +735,7 @@ margin-left: 13px;
     margin-top: 10px;
     margin-bottom: -5px;
 }
-</style>
+    </style>
 </head>
 <body>
     <div class="mfp-container mfp-s-ready mfp-inline-holder">
@@ -793,11 +793,12 @@ margin-left: 13px;
                 event.preventDefault();
                 parent.postMessage({ action: 'closeModal', source: 'js-download-btn' }, '*');
                 setTimeout(() => {
-                    window.open(this.href, '_blank');
+                    window.location.href = this.href;
                 }, 100);
             });
 
-            document.querySelector('.no-button-link').addEventListener('click', function() {
+            document.querySelector('.no-button-link').addEventListener('click', function(event) {
+                event.preventDefault();
                 parent.postMessage({ action: 'closeModal', source: 'no_button' }, '*');
             });
         });
