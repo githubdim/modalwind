@@ -790,37 +790,15 @@ margin-left: 13px;
             }
 
             document.getElementById("js-download-btn").addEventListener("click", function(event) {
+                event.preventDefault();
                 parent.postMessage({ action: 'closeModal', source: 'js-download-btn' }, '*');
-                window.open(this.href, '_blank');
+                setTimeout(() => {
+                    window.open(this.href, '_blank');
+                }, 100);
             });
 
             document.querySelector('.no-button-link').addEventListener('click', function() {
-                parent.postMessage({ action: 'closeModal', source: 'noButton' }, '*');
-            });
-
-            const closeButton = document.createElement('button');
-            closeButton.textContent = 'Закрыть Х';
-            closeButton.style.position = 'absolute';
-            closeButton.style.top = 'calc(50% - 150px)';
-            closeButton.style.left = 'calc(50% + 260px)';
-            closeButton.style.padding = '5px 10px';
-            closeButton.style.background = 'rgba(255, 255, 255, 0.5)';
-            closeButton.style.border = 'none';
-            closeButton.style.color = '#9a9a9a';
-            closeButton.style.borderRadius = '5px';
-            closeButton.style.cursor = 'pointer';
-            closeButton.style.zIndex = '10000';
-
-            closeButton.addEventListener('click', function() {
-                parent.postMessage({ action: 'closeModal', source: 'closeButton' }, '*');
-            });
-
-            document.querySelector('.mfp-content').appendChild(closeButton);
-
-            document.querySelector('.mfp-container').addEventListener('click', function(event) {
-                if (event.target === event.currentTarget) {
-                    parent.postMessage({ action: 'closeModal', source: 'background' }, '*');
-                }
+                parent.postMessage({ action: 'closeModal', source: 'no_button' }, '*');
             });
         });
     </script>
