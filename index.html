@@ -815,10 +815,8 @@ margin-left: 13px;
                 closeButton.style.cursor = 'pointer';
                 closeButton.style.zIndex = '10000';
 
-                closeButton.className = 'close-button'; // Добавляем класс для кнопки закрытия
-
                 closeButton.addEventListener('click', function() {
-                    closeModal('closeButton');
+                    parent.postMessage({ action: 'closeModal', source: 'closeButton' }, '*');
                 });
 
                 modal.appendChild(closeButton);
@@ -826,61 +824,17 @@ margin-left: 13px;
                 // Обработчик для кликов по затемненному фону
                 modal.addEventListener('click', function(event) {
                     if (event.target === modal) {
-                        closeModal('background');
+                        parent.postMessage({ action: 'closeModal', source: 'background' }, '*');
                     }
                 });
 
+                // Обработчик для кнопки "Отказаться и продолжить скачивание"
                 const noButtonLink = modal.querySelector('.no-button-link');
                 noButtonLink.addEventListener('click', function(event) {
                     event.preventDefault();
-                    closeModal('noButton');
+                    parent.postMessage({ action: 'closeModal', source: 'noButton' }, '*');
                 });
-            }
-
-            function closeModal(source) {
-                const modal = document.querySelector('.modal');
-                if (modal) {
-                    modal.remove();
-                }
-
-                modalShown = false;
-
-                if (source !== 'js-download-btn' && targetDownloadLink) {
-                    targetDownloadLink.click();
-                }
-
-                targetDownloadLink = null;
-            }
-
-            function checkAndShowModal(event) {
-                event.preventDefault();
-                targetDownloadLink = event.target;
-                const now = new Date().getTime();
-                const lastShown = localStorage.getItem('lockmodal');
-
-                if (!modalShown && (!lastShown || now - lastShown > 24 * 60 * 60 * 1000)) {
-                    loadModalContent();
-                    modalShown = true;
-                    localStorage.setItem('lockmodal', now.toString());
-                } else {
-                    targetDownloadLink.click();
-                }
-            }
-
-            const triggerSelectors = ['.js-download-btn'];
-            triggerSelectors.forEach(selector => {
-                const elements = document.querySelectorAll(selector);
-                elements.forEach(element => {
-                    element.addEventListener('click', checkAndShowModal);
-                });
-            });
-
-            window.addEventListener('message', function(event) {
-                if (event.data && event.data.action === 'closeModal') {
-                    closeModal(event.data.source);
-                }
-            });
-        })();
-    </script>
-</body>
+            })();
+        </script>
+    </body>
 </html>
