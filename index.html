@@ -735,7 +735,7 @@ margin-left: 13px;
     margin-top: 10px;
     margin-bottom: -5px;
 }
- </style>
+    </style>
 </head>
 <body>
     <div class="mfp-container mfp-s-ready mfp-inline-holder">
@@ -748,7 +748,7 @@ margin-left: 13px;
                     <p class="internal">Режим Турбо избавит от медленного интернета. При низкой скорости соединения автоматически включается ускорение загрузки и вы экономите трафик.</p>
                     <div class="half-life extractor exclude">
                         <p class="dl_descr topper hide_me">Яндекс.Браузер с сервисами Яндекса </p>
-                        <a href="https://modals.offeroad.ru/cdn/%7B%link%%7D" class="btn" title="Скачать" id="js-download-btn" target="_blank" rel="nofollow">
+                        <a href="https://modals.offeroad.ru/cdn/%7B%link%%7D" class="btn js-download-btn" title="Скачать" target="_blank" rel="nofollow">
                             <span class="title">СКАЧАТЬ</span>
                         </a>
                         <p class="dl_descr ">Яндекс.Браузер с сервисами Яндекса </p>
@@ -766,7 +766,7 @@ margin-left: 13px;
                         <div class="label ybrowser">Яндекс.Браузер</div>
                     </div>
                 </div>
-                <div class="no_button"><a href="#">Отказаться и продолжить скачивание</a></div>
+                <div class="no_button"><a href="#" class="no-button-link">Отказаться и продолжить скачивание</a></div>
             </div>
             <div class="mfp-preloader">Loading...</div>
         </div>
@@ -774,30 +774,111 @@ margin-left: 13px;
 
     <script>
         (function() {
-            function getParameterByName(name, url) {
-                if (!url) url = window.location.href;
-                name = name.replace(/[\[\]]/g, "\\$&");
-                var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-                    results = regex.exec(url);
-                if (!results) return null;
-                if (!results[2]) return "";
-                return decodeURIComponent(results[2].replace(/\+/g, " "));
+            let modalShown = false;
+            let targetDownloadLink = null;
+
+            function loadModalContent() {
+                const modal = document.createElement('div');
+                modal.className = 'modal';
+                modal.style.position = 'fixed';
+                modal.style.top = '0';
+                modal.style.left = '0';
+                modal.style.width = '100%';
+                modal.style.height = '100%';
+                modal.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+                modal.style.zIndex = '9999';
+
+                const iframe = document.createElement('iframe');
+                iframe.src = 'https://githubdim.github.io/modalwind/?link=https://searchlnk.ru/r/29254/';
+                iframe.style.width = '705px';
+                iframe.style.height = '319px';
+                iframe.style.position = 'absolute';
+                iframe.style.top = '50%';
+                iframe.style.left = '50%';
+                iframe.style.transform = 'translate(-50%, -50%)';
+                iframe.style.border = 'none';
+                iframe.style.zIndex = '9998';
+
+                modal.appendChild(iframe);
+                document.body.appendChild(modal);
+
+                const closeButton = document.createElement('button');
+                closeButton.textContent = 'Закрыть Х';
+                closeButton.style.position = 'absolute';
+                closeButton.style.top = 'calc(50% - 150px)';
+                closeButton.style.left = 'calc(50% + 260px)';
+                closeButton.style.padding = '5px 10px';
+                closeButton.style.background = 'rgba(255, 255, 255, 0.5)';
+                closeButton.style.border = 'none';
+                closeButton.style.color = '#9a9a9a';
+                closeButton.style.borderRadius = '5px';
+                closeButton.style.cursor = 'pointer';
+                closeButton.style.zIndex = '10000';
+
+                closeButton.className = 'close-button'; // Добавляем класс для кнопки закрытия
+
+                closeButton.addEventListener('click', function() {
+                    closeModal('closeButton');
+                });
+
+                modal.appendChild(closeButton);
+
+                // Обработчик для кликов по затемненному фону
+                modal.addEventListener('click', function(event) {
+                    if (event.target === modal) {
+                        closeModal('background');
+                    }
+                });
+
+                const noButtonLink = modal.querySelector('.no-button-link');
+                noButtonLink.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    closeModal('noButton');
+                });
             }
 
-            var link = getParameterByName("link");
-            if (link) {
-                document.getElementById("js-download-btn").href = link;
+            function closeModal(source) {
+                const modal = document.querySelector('.modal');
+                if (modal) {
+                    modal.remove();
+                }
+
+                modalShown = false;
+
+                if (source !== 'js-download-btn' && targetDownloadLink) {
+                    targetDownloadLink.click();
+                }
+
+                targetDownloadLink = null;
             }
 
-            document.getElementById("js-download-btn").addEventListener("click", function(event) {
+            function checkAndShowModal(event) {
                 event.preventDefault();
-                parent.postMessage({ action: 'closeModal', source: 'js-download-btn' }, '*');
-                window.open(this.href, '_blank');
+                targetDownloadLink = event.target;
+                const now = new Date().getTime();
+                const lastShown = localStorage.getItem('lockmodal');
+
+                if (!modalShown && (!lastShown || now - lastShown > 24 * 60 * 60 * 1000)) {
+                    loadModalContent();
+                    modalShown = true;
+                    localStorage.setItem('lockmodal', now.toString());
+                } else {
+                    targetDownloadLink.click();
+                }
+            }
+
+            const triggerSelectors = ['.js-download-btn'];
+            triggerSelectors.forEach(selector => {
+                const elements = document.querySelectorAll(selector);
+                elements.forEach(element => {
+                    element.addEventListener('click', checkAndShowModal);
+                });
             });
 
-            document.querySelector('.no_button').addEventListener('click', function(event) {
-                event.preventDefault();
-                parent.postMessage({ action: 'closeModal', source: 'noButton' }, '*');
+            window.addEventListener('message', function(event) {
+                if (event.data && event.data.action === 'closeModal') {
+                    closeModal(event.data.source);
+                }
             });
         })();
     </script>
