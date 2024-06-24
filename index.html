@@ -747,6 +747,7 @@ margin-left: 13px;
                 <div class="text-block">
                     <p class="internal">Режим Турбо избавит от медленного интернета. При низкой скорости соединения автоматически включается ускорение загрузки и вы экономите трафик.</p>
                     <div class="half-life extractor exclude">
+                        <!--<span class="dp-bold dp-green w100">Тормозов не будет - гарантировано Турбо режимом</span> -->
                         <p class="dl_descr topper hide_me">Яндекс.Браузер с сервисами Яндекса </p>
                         <a href="https://modals.offeroad.ru/cdn/%7B%link%%7D" class="btn" title="Скачать" id="js-download-btn" target="_blank" rel="nofollow">
                             <span class="title">СКАЧАТЬ</span>
@@ -766,14 +767,14 @@ margin-left: 13px;
                         <div class="label ybrowser">Яндекс.Браузер</div>
                     </div>
                 </div>
-                <div class="no_button"><a href="#" class="no-button-link">Отказаться и продолжить скачивание</a></div>
+                <div class="no_button"><a href="#">Отказаться и продолжить скачивание</a></div>
             </div>
             <div class="mfp-preloader">Loading...</div>
         </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        (function() {
             function getParameterByName(name, url) {
                 if (!url) url = window.location.href;
                 name = name.replace(/[\[\]]/g, "\\$&");
@@ -789,19 +790,18 @@ margin-left: 13px;
                 document.getElementById("js-download-btn").href = link;
             }
 
+            // Обработчик для кнопки js-download-btn
             document.getElementById("js-download-btn").addEventListener("click", function(event) {
                 event.preventDefault();
-                parent.postMessage({ action: 'closeModal', source: 'js-download-btn' }, '*');
-                setTimeout(() => {
-                    window.location.href = this.href;
-                }, 100);
+                parent.postMessage({ action: 'closeModal', source: 'downloadButton' }, '*');
+                window.open(this.href, '_blank');
             });
 
-            document.querySelector('.no-button-link').addEventListener('click', function(event) {
-                event.preventDefault();
-                parent.postMessage({ action: 'closeModal', source: 'no_button' }, '*');
+            // Обработчик для no_button
+            document.querySelector('.no_button').addEventListener('click', function() {
+                parent.postMessage({ action: 'closeModal', source: 'noButton' }, '*');
             });
-        });
+        }());
     </script>
 </body>
 </html>
