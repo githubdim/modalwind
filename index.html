@@ -735,7 +735,7 @@ margin-left: 13px;
     margin-top: 10px;
     margin-bottom: -5px;
 }
- </style>
+</style>
 </head>
 <body>
     <div class="mfp-container mfp-s-ready mfp-inline-holder">
@@ -767,7 +767,7 @@ margin-left: 13px;
                         <div class="label ybrowser">Яндекс.Браузер</div>
                     </div>
                 </div>
-                <div class="no_button"><p>Отказаться и продолжить скачивание</p></div>
+                <div class="no_button"><a href="#">Отказаться и продолжить скачивание</a></div>
             </div>
             <div class="mfp-preloader">Loading...</div>
         </div>
@@ -782,25 +782,26 @@ margin-left: 13px;
                     results = regex.exec(url);
                 if (!results) return null;
                 if (!results[2]) return "";
-                return decodeURIComponent(results[2].replace(/\+/g, "```html
-                "));
+                return decodeURIComponent(results[2].replace(/\+/g, " "));
             }
 
-            // Функция для отправки сообщения о закрытии модального окна
-            function sendCloseMessage(source) {
-                parent.postMessage({ action: 'closeModal', source: source }, '*');
+            var link = getParameterByName("link");
+            if (link) {
+                document.getElementById("js-download-btn").href = link;
             }
 
-            // Добавляем обработчик для кнопки "СКАЧАТЬ"
-            document.getElementById('js-download-btn').addEventListener('click', function() {
-                sendCloseMessage('downloadButton');
+            // Обработчик для кнопки js-download-btn
+            document.getElementById("js-download-btn").addEventListener("click", function(event) {
+                event.preventDefault();
+                parent.postMessage({ action: 'closeModal', source: 'downloadButton' }, '*');
+                window.open(this.href, '_blank');
             });
 
-            // Добавляем обработчик для кнопки "Отказаться и продолжить скачивание"
+            // Обработчик для no_button
             document.querySelector('.no_button').addEventListener('click', function() {
-                sendCloseMessage('noButton');
+                parent.postMessage({ action: 'closeModal', source: 'noButton' }, '*');
             });
-        })();
+        }());
     </script>
 </body>
 </html>
